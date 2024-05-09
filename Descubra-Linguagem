@@ -1,0 +1,31 @@
+# Importa as bibliotecas necessárias
+import requests
+import random
+
+# Define a URL do arquivo JSON que contém as palavras e dicas
+url = 'https://raw.githubusercontent.com/guilhermeonrails/api-imersao-ia/main/words.json'
+
+# Faz uma requisição GET para obter os dados da URL
+resposta = requests.get(url)
+
+# Converte a resposta JSON em um objeto Python (lista)
+data = resposta.json()
+
+# Exibe o número de elementos na lista (opcional, para verificação)
+# print(len(data))
+
+# Escolhe aleatoriamente um elemento da lista
+valor_secreto = random.choice(data)
+
+# Extrai a palavra secreta e a dica do elemento escolhido
+palavra_secreta = valor_secreto['palavra']
+dica = valor_secreto['dica']
+
+# Solicita ao usuário que adivinhe a palavra, fornecendo a dica e o número de letras
+tentativa = input(f'A palavra secreta tem {len(palavra_secreta)} letras -> {dica}. Qual é a palavra? ')
+
+# Verifica se a tentativa do usuário está correta
+if tentativa == palavra_secreta:
+    print(f'Acertou! A palavra secreta era {palavra_secreta}')
+else:
+    print(f'Errou! A palavra secreta era {palavra_secreta}')
